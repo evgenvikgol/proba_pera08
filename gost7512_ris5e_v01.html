@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html lang="ru"><html>
+
+<head>
+	<title>gost7512_ris5e_v01.html</title>
+	    <meta charset="utf-8">
+
+	
+<style>
+		H1{text-align: center; font-style: italic; color: red}		
+		H2{text-align: center; font-style: italic; color: green}
+		H3{text-align: middle; font-style: italic; color: green}
+		H4{text-align: middle; font-style: italic; color: blue}
+		H5{text-align: left; font-style: italic; color: green}
+		H6{text-align: right; font-style: italic; color: blue}	
+</style>
+
+</head>
+
+<body bgcolor="#ffff00" >
+
+<section>
+<ul>
+<li><a href="index.html">Вернуться на Главную страницу</a></li> 
+</ul>
+</section>	
+
+	
+
+<img src="gost7512_ris5e_v01.jpg" align="left" hspace="5" vspace="5" width="20%">
+	<h4>ГОСТ 7512-82 черт.5е</h4>
+<pre>5.3. При контроле сварных соединений по черт.5е 
+(панорамное просвечивание)отношение внутреннего
+диаметра к внешнему диаметру контролируемого со-
+единения не должно быть менее 0,8(m=d/D >= 0,8),
+а максимальный  размер  фокусного  пятна (Фкрит)	
+источника   излучения  не  должен   быть  более 
+Kd/(2(D-d)), где К - чувствительность контроля.</pre>	
+
+	<h4>Введите исходные данные: </h4>
+<pre>Выберите класс чувствительности по ГОСТ 7512-82</pre>	
+
+	   <pre> класс чувствител.  класс : <input type="text" size="3" name="класс" min="1" max="3"  value="1" id="inpкласс"> Выбрать 1, 2 или 3</pre>		  
+	   <pre> наружный диаметр   D, мм : <input type="text" size="3" name="D" min="100" max="1500" value="1220" id="inpD"> Выбрать D больше d</pre>	  
+	   <pre> внутренний диаметр d, мм : <input type="text" size="3" name="d" min="80" max="1480" value="1000" id="inpd"> Выбрать d меньше D</pre>	   
+	   <pre> усиление шва       h, мм : <input type="text" size="3" name="h" min="0" max="5" value="1" id="inph"> Выбрать от 0, но не более 5 мм</pre>
+	   <pre> фокусное пятно     Ф, мм : <input type="text" size="3" name="Ф" min="0.5" max="5" value="1" id="inpФ"> Выбрать более 0, но не более 5 мм</pre>	  
+		<br>
+    
+		<main>
+			<button id="myButton">Рассчитать параметры</button>
+			<p id="message1"></p>		
+			<p id="message2"></p>		
+		<script>
+			document.getElementById("myButton").onclick = function() {		
+			let ошибка=0
+			let h_усил_шва=Number(document.getElementById('inph').value);
+			if (h_усил_шва>=0 && h_усил_шва <=5 ) {
+			}else{			
+				ошибка=ошибка+1
+				h_усил_шва = 0	;
+				alert("  h_усил_шва не должно быть меньше 0 или более 5 мм! Выбираем 0");
+			}
+						
+			let Ф=Number(document.getElementById('inpФ').value);
+			if (Ф>0 && Ф <=5 ) {
+			}else{			
+				ошибка=ошибка+1				
+				Ф = 3	;
+				alert("  Ф не должно быть меньше 0 или более 5 мм. Выбрано - 3 мм");
+			}			
+			let D=Number(document.getElementById('inpD').value);
+			let dвн=Number(document.getElementById('inpd').value);
+			let m = Math.round(dвн / D*100)/100;
+			if (m>0 && m <1 ) {
+			}else{			
+				ошибка=ошибка+1				
+				dвн = 900;
+				D = 1000;
+				m = 0.9
+				alert("Неверное соотношение dвн и D. Выбирае D=1000 и dвн=900");
+			}
+			
+			let klass=Number(document.getElementById('inpкласс').value);
+			if (klass==1 || klass==2 || klass==3) {			
+			}else{			
+				ошибка=ошибка+1				
+				//klass=1	;
+				//alert("Неверно выбран класс. Указывем класс 1");
+			    klass =prompt("укажите правильно класс", '');
+			}
+			
+			let K				
+			let Sрад = (D - dвн) / 2 + h_усил_шва;			
+			
+			let f = dвн / 2;
+
+			if (klass == "1"  && Sрад > 0   && Sрад <=5) {K=0.1;}
+			if (klass == "1"  && Sрад >= 5   && Sрад <=9) {K=0.2;}		
+			if (klass == "1"  && Sрад >= 9   && Sрад <=12) {K=0.2;}
+			if (klass == "1"  && Sрад >= 12   && Sрад <=20) {K=0.3;}				
+			if (klass == "1"  && Sрад >20   && Sрад <=30) {K=0.4;}
+			if (klass == "1"  && Sрад >30   && Sрад <=40) {K=0.5;}		
+			if (klass == "1"  && Sрад >40   && Sрад <=50) {K=0.6;}
+			if (klass == "1"  && Sрад >50   && Sрад <=70) {K=0.75;}				
+			if (klass == "1"  && Sрад >70   && Sрад <=100) {K=1;}
+			if (klass == "1"  && Sрад >100   && Sрад <=140) {K=1.25;}		
+			if (klass == "1"  && Sрад >140   && Sрад <=200) {K=1.50;}
+			if (klass == "1"  && Sрад >200   && Sрад <=300) {K=2;}				
+			if (klass == "1"  && Sрад >300   && Sрад <=400) {K=2.5;}			
+			
+			if (klass == "2"  && Sрад > 0   && Sрад <=5) {K=0.1;}
+			if (klass == "2"  && Sрад >= 5   && Sрад <=9) {K=0.2;}		
+			if (klass == "2"  && Sрад >= 9   && Sрад <=12) {K=0.3;}
+			if (klass == "2"  && Sрад >= 12   && Sрад <=20) {K=0.4;}				
+			if (klass == "2"  && Sрад >20   && Sрад <=30) {K=0.5;}
+			if (klass == "2"  && Sрад >30   && Sрад <=40) {K=0.6;}		
+			if (klass == "2"  && Sрад >40   && Sрад <=50) {K=0.75;}
+			if (klass == "2"  && Sрад >50   && Sрад <=70) {K=1;}				
+			if (klass == "2"  && Sрад >70   && Sрад <=100) {K=1.25;}
+			if (klass == "2"  && Sрад >100   && Sрад <=140) {K=1.5;}		
+			if (klass == "2"  && Sрад >140   && Sрад <=200) {K=2;}
+			if (klass == "2"  && Sрад >200   && Sрад <=300) {K=2.5;}				
+			//if (klass == "2"  && Sрад >300   && Sрад <=400) {K=2.5;}			
+			
+			if (klass == "3"  && Sрад > 0   && Sрад <=5) {K=0.2;}
+			if (klass == "3"  && Sрад >= 5   && Sрад <=9) {K=0.3;}		
+			if (klass == "3"  && Sрад >= 9   && Sрад <=12) {K=0.4;}
+			if (klass == "3"  && Sрад >= 12   && Sрад <=20) {K=0.5;}				
+			if (klass == "3"  && Sрад >20   && Sрад <=30) {K=0.6;}
+			if (klass == "3"  && Sрад >30   && Sрад <=40) {K=0.75;}		
+			if (klass == "3"  && Sрад >40   && Sрад <=50) {K=1;}
+			if (klass == "3"  && Sрад >50   && Sрад <=70) {K=1.25;}				
+			if (klass == "3"  && Sрад >70   && Sрад <=100) {K=1.5;}
+			if (klass == "3"  && Sрад >100   && Sрад <=140) {K=2;}		
+			if (klass == "3"  && Sрад >140   && Sрад <=200) {K=2.50;}
+			//if (klass == "3"  && Sрад >200   && Sрад <=300) {K=2;}				
+			//if (klass == "3"  && Sрад >300   && Sрад <=400) {K=2.5;}			
+			
+			let Фкрит = K * dвн /2/(D - dвн) ;
+			document.getElementById("message1").innerHTML = "  Результат расчета:<br> f, мм = "
+			+ f+" <br> класс = " + klass  + "; <br> Ф, мм = " + Ф + " <br> D = " + D +" <br> dвн = " + dвн +" <br> m = " + m
+			+ "; <br> Sрад, мм = " + Sрад +" <br> m = "	+ m +" <br> K = " + K  + ";<br> Фкрит, мм = " 
+			+ Math.floor(Фкрит*10)/10+"<br>При вводе исходных данных допущено ошибок - " + ошибка; ;
+			
+			if (Фкрит >= Ф  && m >= 0.8) {
+				document.getElementById("message2").innerHTML = "  Допустимо:  m > 0.8 и  Фкрит > Ф ";
+			}else if (Фкрит > Ф && m < 0.8) {
+				document.getElementById("message2").innerHTML = "  Не допустимо:  m < 0.8 ";
+			}else if (Фкрит < Ф && m > 0.8) {
+				document.getElementById("message2").innerHTML = "  Не допустимо:  Ф > Фкрит ";
+			}else if (Фкрит < Ф && m < 0.8) {
+				document.getElementById("message2").innerHTML = "  Не допустимо:  Ф > Фкрит и m < 0.8";
+
+			}else {
+			}
+			
+		}
+
+		</script>
+  
+ 
+</body>
+</html>
