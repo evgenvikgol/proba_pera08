@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html lang="ru"><html>
+
+<head>
+	<title>gost7512_ris5в_v01.html</title>
+	    <meta charset="utf-8">
+
+	
+<style>
+		H1{text-align: center; font-style: italic; color: red}		
+		H2{text-align: center; font-style: italic; color: green}
+		H3{text-align: middle; font-style: italic; color: green}
+		H4{text-align: middle; font-style: italic; color: blue}
+		H5{text-align: left; font-style: italic; color: green}
+		H6{text-align: right; font-style: italic; color: blue}	
+</style>
+
+</head>
+
+<body bgcolor="#ffff00" >
+
+<section>
+
+<ul>
+<li><a href="portfolio.html">Вернуться на portfolio</a></li> 
+</ul>
+</section>	
+
+<img src="gost7512_ris5в_v01.jpg" align="left" hspace="5" vspace="5" width="20%">
+	<h4>ГОСТ 7512-82 черт.5в</h4>
+<pre>
+4.3. При контроле через две стенки схема черт. 5в 
+рекомендуется для просвечивания изделий диаметром
+до 100 мм
+4.5. При  контроле  сварных  соединений по схемам 
+черт. 5в направление  излучения  следует выбирать 
+таким, чтобы  изображения противолежащих участков
+сварного шва  на снимке  не накладывались друг на
+друга. При этом угол между направлением излучения
+и плоскостью сварного шва должен быть минимальным
+и в любом случае не превышать 45°.
+Согласно таблиц 1 и 2 ПРИЛОЖЕНИЯ 4 для схемы черт.
+5в: f_min = CD, а минимальное количество участков
+(экспозиций) — не менее 2.
+ Используются обозначения:
+ s - радиационная толщина, мм;
+ D - наружный диаметр контролируемого сварного соединения, мм;
+ Ф - максимальный размер фокусного пятна источника излучения, мм;
+ K - требуемая чувствительность контроля, мм.
+ 3. Количество  участков (экспозиций) при контроле по схемe черт.5в не
+ должно быть менее 2.
+ </pre>	
+	<h4>Введите исходные данные: </h4>
+<pre>Выберите класс чувствительности по ГОСТ 7512-82</pre>	
+
+	   <pre> класс чувствител.  класс : <input type="text" size="3" name="класс" min="1" max="3"  value="1" id="inpкласс"> Выбрать 1, 2 или 3</pre>		  
+	   <pre> наружный диаметр   D, мм : <input type="text" size="3" name="D" min="5" max="100" value="80" id="inpD"> Выбрать D  больше  d</pre>	  
+	   <pre> внутренний диаметр d, мм : <input type="text" size="3" name="d" min="1" max="99" value="60" id="inpd"> Выбрать d меньше D</pre>	   
+	   <pre> усиление шва       h, мм : <input type="text" size="3" name="h" min="0" max="5" value="1" id="inph"> Выбрать h не менее 0 и не более 5 мм</pre>
+	   <pre> фокусное пятно     Ф, мм : <input type="text" size="3" name="Ф" min="0.5" max="5" value="1" id="inpФ"> Выбрать  Ф более 0 и не более 5 мм</pre>	  
+
+		
+		<br>
+    
+		<main>
+			<button id="myButton">Рассчитать параметры</button>
+			<p id="message1"></p>		
+	
+<script>
+	document.getElementById("myButton").onclick = function() {		
+
+			let h_усил_шва=Number(document.getElementById('inph').value);
+			let Ф=Number(document.getElementById('inpФ').value);
+			let D=Number(document.getElementById('inpD').value);
+			let dвн=Number(document.getElementById('inpd').value);
+			let klass=Number(document.getElementById('inpкласс').value);
+
+			let m = Math.round(dвн / D*100)/100;
+			let Sрад = (D - dвн) / 2 + h_усил_шва;
+			let K			
+			if (klass == "1"  && Sрад > 0   && Sрад <=5) {K=0.1;}
+			if (klass == "1"  && Sрад >= 5   && Sрад <=9) {K=0.2;}		
+			if (klass == "1"  && Sрад >= 9   && Sрад <=12) {K=0.2;}
+			if (klass == "1"  && Sрад >= 12   && Sрад <=20) {K=0.3;}				
+			if (klass == "1"  && Sрад >20   && Sрад <=30) {K=0.4;}
+			if (klass == "1"  && Sрад >30   && Sрад <=40) {K=0.5;}		
+			if (klass == "1"  && Sрад >40   && Sрад <=50) {K=0.6;}
+			if (klass == "1"  && Sрад >50   && Sрад <=70) {K=0.75;}				
+			if (klass == "1"  && Sрад >70   && Sрад <=100) {K=1;}
+			if (klass == "1"  && Sрад >100   && Sрад <=140) {K=1.25;}		
+			if (klass == "1"  && Sрад >140   && Sрад <=200) {K=1.50;}
+			if (klass == "1"  && Sрад >200   && Sрад <=300) {K=2;}				
+			if (klass == "1"  && Sрад >300   && Sрад <=400) {K=2.5;}			
+			
+			if (klass == "2"  && Sрад > 0   && Sрад <=5) {K=0.1;}
+			if (klass == "2"  && Sрад >= 5   && Sрад <=9) {K=0.2;}		
+			if (klass == "2"  && Sрад >= 9   && Sрад <=12) {K=0.3;}
+			if (klass == "2"  && Sрад >= 12   && Sрад <=20) {K=0.4;}				
+			if (klass == "2"  && Sрад >20   && Sрад <=30) {K=0.5;}
+			if (klass == "2"  && Sрад >30   && Sрад <=40) {K=0.6;}		
+			if (klass == "2"  && Sрад >40   && Sрад <=50) {K=0.75;}
+			if (klass == "2"  && Sрад >50   && Sрад <=70) {K=1;}				
+			if (klass == "2"  && Sрад >70   && Sрад <=100) {K=1.25;}
+			if (klass == "2"  && Sрад >100   && Sрад <=140) {K=1.5;}		
+			if (klass == "2"  && Sрад >140   && Sрад <=200) {K=2;}
+			if (klass == "2"  && Sрад >200   && Sрад <=300) {K=2.5;}				
+			//if (klass == "2"  && Sрад >300   && Sрад <=400) {K=2.5;}			
+			
+			if (klass == "3"  && Sрад > 0   && Sрад <=5) {K=0.2;}
+			if (klass == "3"  && Sрад >= 5   && Sрад <=9) {K=0.3;}		
+			if (klass == "3"  && Sрад >= 9   && Sрад <=12) {K=0.4;}
+			if (klass == "3"  && Sрад >= 12   && Sрад <=20) {K=0.5;}				
+			if (klass == "3"  && Sрад >20   && Sрад <=30) {K=0.6;}
+			if (klass == "3"  && Sрад >30   && Sрад <=40) {K=0.75;}		
+			if (klass == "3"  && Sрад >40   && Sрад <=50) {K=1;}
+			if (klass == "3"  && Sрад >50   && Sрад <=70) {K=1.25;}				
+			if (klass == "3"  && Sрад >70   && Sрад <=100) {K=1.5;}
+			if (klass == "3"  && Sрад >100   && Sрад <=140) {K=2;}		
+			if (klass == "3"  && Sрад >140   && Sрад <=200) {K=2.50;}
+			//if (klass == "3"  && Sрад >200   && Sрад <=300) {K=2;}				
+			//if (klass == "3"  && Sрад >300   && Sрад <=400) {K=2.5;}			
+			
+			
+			let C;
+			if (Ф/K >=2 ) {
+				C=2*Ф/K	;		
+			}else{
+				C=4;
+			} 
+ 			
+				
+			
+			let f_min =  C*D;
+			let Nуч = 2;
+
+	document.getElementById("message1").innerHTML = "Выбрано; "+" <br> класс = "
+		+ klass +"; <br> Ф, мм = "	+ Ф + "; <br> D = " + D +"; <br> dвн = " + dвн
+		+ "; <br>  h_усил_шва = "+h_усил_шва +" <br> Результат расчета:<br> f_min, мм = " 
+		+ Math.floor(f_min) + "; <br> Sрад, мм = " + Sрад +" <br> K = " + K  
+		+ ";<br> C, мм = " + Math.floor(C*10)/10 + ";<br> Nуч(мин) = " + 2;
+	}
+	
+
+</script>
+  
+ 
+</body>
+</html>

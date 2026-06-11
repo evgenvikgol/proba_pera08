@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html lang="ru"><html>
+
+<head>
+	<title>gost7512_ris5г_v01.html</title>
+	    <meta charset="utf-8">
+
+	
+<style>
+		H1{text-align: center; font-style: italic; color: red}		
+		H2{text-align: center; font-style: italic; color: green}
+		H3{text-align: middle; font-style: italic; color: green}
+		H4{text-align: middle; font-style: italic; color: blue}
+		H5{text-align: left; font-style: italic; color: green}
+		H6{text-align: right; font-style: italic; color: blue}	
+</style>
+
+</head>
+
+<body bgcolor="#ffff00" >
+
+<section>
+
+<ul>
+<li><a href="portfolio.html">Вернуться на portfolio</a></li> 
+</ul>
+</section>	
+
+<img src="gost7512_ris5г_v01.jpg" align="left" hspace="5" vspace="5" width="20%">
+	<h4>ГОСТ 7512-82 черт.5г</h4>
+<pre>
+4.3. При контроле через две стенки схема  черт.5г 
+- для просвечивания изделий диаметром более 50 мм.
+4.5. При  контроле  сварных  соединений  по схеме
+черт. 5г направление  излучения  следует выбирать
+таким, чтобы  изображения противолежащих участков
+сварного  шва на  снимке не накладывались друг на
+друга. При этом угол между направлением излучения
+и плоскостью сварного шва должен быть минимальным
+и в любом случае не превышать 45°.
+ПРИЛОЖЕНИЕ 4.1.  Расстояние f от источника излуче-
+ния до обращенной к источнику  поверхности контро-
+лируемого сварного соединения не должно быть менее
+значений, определяемых по формулe 
+             f >= 0,5[1,5С(1-m)-1]D, 
+где С=2Ф/К при Ф/К >= 2  и С=4 при при Ф/К менее 2;
+ s - радиационная толщина, мм;
+ D - наружный диаметр контролируемого сварного сое-
+ динения, мм;
+ m - отношение  внутреннего и  наружного  диаметров
+ контролируемого сварного соединения;
+ Ф - максимальный размер фокусного пятна  источника
+ излучения, мм;
+ K - требуемая чувствительность контроля, мм.
+Примечание. Если для схемы черт. 5г величина f - от-
+рицательная, то f может  быть  принято  равным нулю
+(т.е. источник излучения может помещаться  непосред-
+ственно на противоположной контролируемому участку
+стенке изделия).
+3. Количество участков (экспозиций) при контроле по
+схеме черт. 5г не должно быть менее значений, опре-
+деляемых по формуле, приведенной в таблице:</pre>
+<img src="gost7512_ris5г_v01_pril1_tabl2.jpg" align="left" hspace="2" vspace="2" width="50%">
+<br><br><br><br><br>
+
+ 
+	<h4>Введите исходные данные: </h4>
+<pre>Выберите класс чувствительности по ГОСТ 7512-82</pre>	
+
+	   <pre> класс чувствител.  класс : <input type="text" size="3" name="класс" min="1" max="3"  value="1" id="inpкласс"> Выбрать 1, 2 или 3</pre>		  
+	   <pre> наружный диаметр   D, мм : <input type="text" size="3" name="D" min="5" max="100" value="80" id="inpD"> Выбрать D  больше  d</pre>	  
+	   <pre> внутренний диаметр d, мм : <input type="text" size="3" name="d" min="1" max="99" value="60" id="inpd"> Выбрать d меньше D</pre>	   
+	   <pre> усиление шва       h, мм : <input type="text" size="3" name="h" min="0" max="5" value="1" id="inph"> Выбрать h не менее 0 и не более 5 мм</pre>
+	   <pre> фокусное пятно     Ф, мм : <input type="text" size="3" name="Ф" min="0.5" max="5" value="1" id="inpФ"> Выбрать  Ф более 0 и не более 5 мм</pre>	  
+
+		
+		<br>
+    
+		<main>
+			<button id="myButton">Рассчитать параметры</button>
+			<p id="message1"></p>		
+	
+<script>
+	document.getElementById("myButton").onclick = function() {		
+
+			let h_усил_шва=Number(document.getElementById('inph').value);
+			let Ф=Number(document.getElementById('inpФ').value);
+			let D=Number(document.getElementById('inpD').value);
+			let dвн=Number(document.getElementById('inpd').value);
+			let klass=Number(document.getElementById('inpкласс').value);
+
+
+
+			let Sрад = (D - dвн) / 2 + h_усил_шва;
+			let K			
+			if (klass == "1"  && Sрад > 0   && Sрад <=5) {K=0.1;}
+			if (klass == "1"  && Sрад >= 5   && Sрад <=9) {K=0.2;}		
+			if (klass == "1"  && Sрад >= 9   && Sрад <=12) {K=0.2;}
+			if (klass == "1"  && Sрад >= 12   && Sрад <=20) {K=0.3;}				
+			if (klass == "1"  && Sрад >20   && Sрад <=30) {K=0.4;}
+			if (klass == "1"  && Sрад >30   && Sрад <=40) {K=0.5;}		
+			if (klass == "1"  && Sрад >40   && Sрад <=50) {K=0.6;}
+			if (klass == "1"  && Sрад >50   && Sрад <=70) {K=0.75;}				
+			if (klass == "1"  && Sрад >70   && Sрад <=100) {K=1;}
+			if (klass == "1"  && Sрад >100   && Sрад <=140) {K=1.25;}		
+			if (klass == "1"  && Sрад >140   && Sрад <=200) {K=1.50;}
+			if (klass == "1"  && Sрад >200   && Sрад <=300) {K=2;}				
+			if (klass == "1"  && Sрад >300   && Sрад <=400) {K=2.5;}			
+			
+			if (klass == "2"  && Sрад > 0   && Sрад <=5) {K=0.1;}
+			if (klass == "2"  && Sрад >= 5   && Sрад <=9) {K=0.2;}		
+			if (klass == "2"  && Sрад >= 9   && Sрад <=12) {K=0.3;}
+			if (klass == "2"  && Sрад >= 12   && Sрад <=20) {K=0.4;}				
+			if (klass == "2"  && Sрад >20   && Sрад <=30) {K=0.5;}
+			if (klass == "2"  && Sрад >30   && Sрад <=40) {K=0.6;}		
+			if (klass == "2"  && Sрад >40   && Sрад <=50) {K=0.75;}
+			if (klass == "2"  && Sрад >50   && Sрад <=70) {K=1;}				
+			if (klass == "2"  && Sрад >70   && Sрад <=100) {K=1.25;}
+			if (klass == "2"  && Sрад >100   && Sрад <=140) {K=1.5;}		
+			if (klass == "2"  && Sрад >140   && Sрад <=200) {K=2;}
+			if (klass == "2"  && Sрад >200   && Sрад <=300) {K=2.5;}				
+			//if (klass == "2"  && Sрад >300   && Sрад <=400) {K=2.5;}			
+			
+			if (klass == "3"  && Sрад > 0   && Sрад <=5) {K=0.2;}
+			if (klass == "3"  && Sрад >= 5   && Sрад <=9) {K=0.3;}		
+			if (klass == "3"  && Sрад >= 9   && Sрад <=12) {K=0.4;}
+			if (klass == "3"  && Sрад >= 12   && Sрад <=20) {K=0.5;}				
+			if (klass == "3"  && Sрад >20   && Sрад <=30) {K=0.6;}
+			if (klass == "3"  && Sрад >30   && Sрад <=40) {K=0.75;}		
+			if (klass == "3"  && Sрад >40   && Sрад <=50) {K=1;}
+			if (klass == "3"  && Sрад >50   && Sрад <=70) {K=1.25;}				
+			if (klass == "3"  && Sрад >70   && Sрад <=100) {K=1.5;}
+			if (klass == "3"  && Sрад >100   && Sрад <=140) {K=2;}		
+			if (klass == "3"  && Sрад >140   && Sрад <=200) {K=2.50;}
+			//if (klass == "3"  && Sрад >200   && Sрад <=300) {K=2;}				
+			//if (klass == "3"  && Sрад >300   && Sрад <=400) {K=2.5;}			
+			
+			
+			let C;
+			if (Ф/K >=2 ) {
+				C=2*Ф/K	;		
+			}else{
+				C=4;
+			} 
+ 			
+			let m=dвн/D;
+			let p = (1 - 0.2*(2.6 - 1/m)**2)**(1/2);
+			
+			let f_min =  0.5*[1.5*C*(1-m)-1]*D;
+			let n = f_min/D;
+			let Nуч = 3.14 / ( Math.asin(p*m) - Math.asin(p*m/(2*n+1)));
+
+	document.getElementById("message1").innerHTML = "Выбрано; "+" <br> класс = "
+		+ klass +"; <br> Ф, мм = "	+ Ф + "; <br> D = " + D +"; <br> dвн = " + dвн
+		+ "; <br>  h_усил_шва = "+h_усил_шва +" <br> Результат расчета:<br> f_min, мм = " 
+		+ Math.floor(f_min) + "; <br> Sрад, мм = " + Sрад +" <br> K = " + K  
+		+ ";<br> C = " + Math.floor(C*10)/10 + ";<br> Nуч(мин) = " + Math.floor(Nуч*10)/10;
+	}
+	
+
+</script>
+  
+ 
+</body>
+</html>
