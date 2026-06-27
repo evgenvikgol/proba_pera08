@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html lang="ru"><html>
+
+<head>
+	<title>gost7512_ris6_v01.html</title>
+	    <meta charset="utf-8">
+
+	
+<style>
+		H1{text-align: center; font-style: italic; color: red}		
+		H2{text-align: center; font-style: italic; color: green}
+		H3{text-align: middle; font-style: italic; color: green}
+		H4{text-align: middle; font-style: italic; color: blue}
+		H5{text-align: left; font-style: italic; color: green}
+		H6{text-align: right; font-style: italic; color: blue}	
+</style>
+
+</head>
+
+<body bgcolor="#ffff00" >
+
+<section>
+
+<ul>
+<li><a href="portfolio.html">Вернуться на portfolio</a></li> 
+</ul>
+</section>	
+
+<img src="gost7512_ris6_v01.jpg" align="left" hspace="1" vspace="1" width="50%">
+<br><br><br><br><br><br><br><br>	
+	<h4>ГОСТ 7512-82 черт.6</h4>
+<pre>
+4.2. При ограниченной ширине привариваемого элемента
+допускается проводить контроль тавровых сварных сое-
+динений с направлением излучения по образующей этого
+элемента в соответствии с черт. 6.
+4.9. При выборе схемы и направления излучения следует
+учитывать: 
+- расстояние от  контролируемого сварного соединения 
+до радиографической пленки должно быть минимальным и
+в любом случае не превышать H=150 мм;
+- угол между направлением излучения и нормалью к ра-
+диографической пленке в пределах контролируемого  за
+одну экспозицию  участка  сварного соединения должен 
+быть минимальным и в любом случае не превышать 45°.
+6.8. Если при  контроле пленка располагается на рас-
+стоянии Н от обращенной к пленке поверхности контро-
+лируемого сварного соединения и выполняется соотноше-
+ние (f+s)/H > 10, определенные по снимку размеры пе-
+ред их округлением рекомендуется умножать на коэффи-
+циент k=(f+s)/(H+f+s), где f - расстояние от источни-
+ка  излучения до  обращенной к источнику поверхности 
+контролируемого участка сварного соединения, мм; s -
+радиационная толщина, мм.
+ ПРИЛОЖЕНИЕ 4.1. Расстояние f от источника излучения
+ до обращенной к источнику поверхности контролируемо-
+ го сварного соединения не должно быть менее значений,
+ определяемых по формулe f >= Сs, где С=2Ф/К
+ при Ф/К >= 2  и С=4 при при Ф/К менее 2;
+ s - радиационная толщина, мм;
+ Ф - максимальный размер фокусного пятна источника
+     излучения, мм;
+ K - требуемая чувствительность контроля, мм.
+ 2. Длина L_max  контролируемых  за одну  экспозицию 
+ участков при контроле по схемам черт. 6 не должна быть
+ более 0,8 f.</pre>	
+<br><br>
+	<h4>Введите исходные данные: </h4>
+<pre>Выберите класс чувствительности по ГОСТ 7512-82</pre>	
+
+	   <pre> класс чувствител.  класс : <input type="text" size="3" name="класс" min="1" max="3"  value="1" id="inpкласс"> Выбрать 1, 2 или 3</pre>  		  
+	   <pre> радиацион.толщина  s, мм : <input type="text" size="3" name="s" min="1" max="400" value="20" id="inpSрад"> Выбрать от 0, но не более 5 мм</pre>  
+	   <pre> фокусное пятно     Ф, мм : <input type="text" size="3" name="Ф" min="1" max="5" value="1" id="inpФ"> Выбрать больше 0, но не более 5 мм</pre>  	  
+	   <pre> расст.(до кассеты) H, мм : <input type="text" size="3" name="H" min="0" max="150" value="100" id="inpH"> Выбрать больше 0, но не более 150 мм</pre>	  
+	   <pre> Оптимизация        f, мм : <input type="text" size="3" name="f" min="0" max="1500" value="200" id="inpf"> Выбрать f больше f_min</pre>	  
+		
+		<br>
+    
+		<main>
+			<button id="myButton">Рассчитать параметры</button>
+			<button id="myButton1">Оптимизация f --> k, L_max</button>			
+			<p id="message1"></p>		
+			<p id="message2"></p>		
+<script>
+			let f_min 
+			let L_max 
+document.getElementById("myButton").onclick = function() {		        
+			let ошибка=0
+			let Sрад=Number(document.getElementById('inpSрад').value);
+			if (Sрад>0 && Sрад <=400 ) {
+			}else{			
+				ошибка=ошибка+1
+				Sрад = 20	;
+				alert("  Sрад не должно быть меньше 0 или более 400 мм! Выбираем 20");
+			}
+			
+			let H=Number(document.getElementById('inpH').value);
+			if (H>0 && H <=150 ) {
+			}else{			
+				ошибка=ошибка+1
+				H = 100	;
+				alert("  H не должно быть меньше 0 или более 150 мм! Выбираем 100");
+			}			
+			
+			let Ф=Number(document.getElementById('inpФ').value);
+			if (Ф>0 && Ф <=5 ) {
+			}else{			
+				ошибка=ошибка+1				
+				Ф = 3	;
+				alert("  Ф не должно быть меньше 0 или более 10 мм. Выбрано - 3 мм");
+			}
+			
+			let klass=Number(document.getElementById('inpкласс').value);
+			if (klass==1 || klass==2 || klass==3) {			
+			}else{			
+				ошибка=ошибка+1				
+				klass=1	;
+				alert("Неверно выбран класс. Указывем класс 1");
+			}
+			let K;
+			let C;			
+			let k;	
+			//let Sрад = (D - dвн) / 2 + h_усил_шва;
+			
+			if (klass == "1"  && Sрад > 0   && Sрад <=5) {K=0.1;}
+			if (klass == "1"  && Sрад >= 5   && Sрад <=9) {K=0.2;}		
+			if (klass == "1"  && Sрад >= 9   && Sрад <=12) {K=0.2;}
+			if (klass == "1"  && Sрад >= 12   && Sрад <=20) {K=0.3;}				
+			if (klass == "1"  && Sрад >20   && Sрад <=30) {K=0.4;}
+			if (klass == "1"  && Sрад >30   && Sрад <=40) {K=0.5;}		
+			if (klass == "1"  && Sрад >40   && Sрад <=50) {K=0.6;}
+			if (klass == "1"  && Sрад >50   && Sрад <=70) {K=0.75;}				
+			if (klass == "1"  && Sрад >70   && Sрад <=100) {K=1;}
+			if (klass == "1"  && Sрад >100   && Sрад <=140) {K=1.25;}		
+			if (klass == "1"  && Sрад >140   && Sрад <=200) {K=1.50;}
+			if (klass == "1"  && Sрад >200   && Sрад <=300) {K=2;}				
+			if (klass == "1"  && Sрад >300   && Sрад <=400) {K=2.5;}			
+			
+			if (klass == "2"  && Sрад > 0   && Sрад <=5) {K=0.1;}
+			if (klass == "2"  && Sрад >= 5   && Sрад <=9) {K=0.2;}		
+			if (klass == "2"  && Sрад >= 9   && Sрад <=12) {K=0.3;}
+			if (klass == "2"  && Sрад >= 12   && Sрад <=20) {K=0.4;}				
+			if (klass == "2"  && Sрад >20   && Sрад <=30) {K=0.5;}
+			if (klass == "2"  && Sрад >30   && Sрад <=40) {K=0.6;}		
+			if (klass == "2"  && Sрад >40   && Sрад <=50) {K=0.75;}
+			if (klass == "2"  && Sрад >50   && Sрад <=70) {K=1;}				
+			if (klass == "2"  && Sрад >70   && Sрад <=100) {K=1.25;}
+			if (klass == "2"  && Sрад >100   && Sрад <=140) {K=1.5;}		
+			if (klass == "2"  && Sрад >140   && Sрад <=200) {K=2;}
+			if (klass == "2"  && Sрад >200   && Sрад <=300) {K=2.5;}				
+			//if (klass == "2"  && Sрад >300   && Sрад <=400) {K=2.5;}			
+			
+			if (klass == "3"  && Sрад > 0   && Sрад <=5) {K=0.2;}
+			if (klass == "3"  && Sрад >= 5   && Sрад <=9) {K=0.3;}		
+			if (klass == "3"  && Sрад >= 9   && Sрад <=12) {K=0.4;}
+			if (klass == "3"  && Sрад >= 12   && Sрад <=20) {K=0.5;}				
+			if (klass == "3"  && Sрад >20   && Sрад <=30) {K=0.6;}
+			if (klass == "3"  && Sрад >30   && Sрад <=40) {K=0.75;}		
+			if (klass == "3"  && Sрад >40   && Sрад <=50) {K=1;}
+			if (klass == "3"  && Sрад >50   && Sрад <=70) {K=1.25;}				
+			if (klass == "3"  && Sрад >70   && Sрад <=100) {K=1.5;}
+			if (klass == "3"  && Sрад >100   && Sрад <=140) {K=2;}		
+			if (klass == "3"  && Sрад >140   && Sрад <=200) {K=2.50;}
+
+			if (Ф/K >=2 ) {
+				C=2*Ф/K	;		
+			}else{
+				C=4;
+			}  			
+
+			f_min =  C*Sрад;
+			L_max = 0.8*f_min
+			k = (f_min+Sрад)/(f_min+Sрад+H);
+			//let Nуч = 3.14 / ( Math.asin(0.7*m) - Math.asin(0.7*m/(2*n+1)));
+//alert(Math.asin(0.7*m));
+//alert(Math.asin(0.7*m/(2*n+1)));
+			document.getElementById("message1").innerHTML = "Выбрано:" +" <br> класс = "
+			+ klass +"; <br> H, мм = "	+ H +"; <br> Ф, мм = "	+ Ф + " <br> Результат расчета:<br> f_min, мм = " 
+			+ Math.floor(f_min) +" <br> Sрад, мм = "	+ Sрад + " <br>L_max = "+Math.floor(L_max*10)/10 
+			+" <br> K(чувствительность)  = " + K +" <br> k(рекоменлуемый коэффициент) = " + Math.floor(k*10)/10  + ";<br> C = "+ Math.floor(C*10)/10 +"<br>При вводе исходных данных допущено ошибок - "
+			+ ошибка;
+	}
+	
+	document.getElementById("myButton1").onclick = function() {		
+			let f=Number(document.getElementById('inpf').value);
+			if (f < f_min ) {
+				f = Math.floor(f_min*10)/10	;
+				
+				alert("  f не должно быть меньше или равно f_min ");
+				//document.getElementById("message2").innerHTML = "  f не должно быть меньше или равно f_min ";
+					
+			}else{
+			}		
+			let Sрад1=Number(document.getElementById('inpSрад').value);
+			let L_max1 = 0.8*f
+			let H1=Number(document.getElementById('inpH').value);			
+			let k1 = (f+Sрад1)/(f+Sрад1+H1);
+			document.getElementById("message2").innerHTML = "Выбрано; "+"<br> f, мм = "
+			+ f +"<br>  Результат оптимизации:" +  ";<br> L_max = " + Math.floor(L_max1*10)/10
+			+  ";<br> k = " + Math.floor(k1*10)/10;
+	
+	}
+
+</script>
+  
+ 
+</body>
+</html>
