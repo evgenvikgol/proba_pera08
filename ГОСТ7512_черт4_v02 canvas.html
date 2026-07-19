@@ -1,0 +1,261 @@
+<!doctype html>
+<html>
+  <head>
+<section>
+<ul>
+<li><a href="portfolio.html">Вернуться на portfolio</a></li> 
+</ul>
+</section>	
+    	<h4>ГОСТ 7512-82 черт.4</h4>
+  <img src="gost7512_ris4_v01.jpg" align="left" hspace="5" vspace="5" width="35%">	
+<br>
+
+  </head>
+  <body onload="draw();">
+    <canvas id="canvas" width="250" height="200"></canvas>
+ 	<h4>Введите исходные данные: </h4>
+	   <pre> чувствительность,  класс : <input type="text" size="3" name="класс" min="1" max="3"  value="1" id="inpкласс"> Выбрать 1, 2 или 3</pre>		  
+	   <pre> рад.толщина шва Sрад, мм : <input type="text" size="3" name="s" min="1" max="400" value="20" id="inps"> Указать s, (не более 400мм)</pre>  	  
+	   <pre> длина пленки       L, мм : <input type="text" size="3" name="L" min="40" max="1000" value="100" id="inpL"> Выбрать L, мм</pre>	    
+	   <pre> фокусное пятно     Ф, мм : <input type="text" size="3" name="Ф" min="0.5" max="5" value="1.5" id="inpФ"> Выбрать Фmax не более 5 мм</pre>	  
+		
+		<br>
+			<button id="myButton">Рассчитать параметры</button>
+			
+			<p id="message1"></p>		
+	
+
+ <script type="application/javascript">
+    
+	
+function draw() {
+  let canvas = document.getElementById("canvas");
+ 
+  
+  if (canvas.getContext) {
+  
+    let ctx = canvas.getContext("2d");
+
+ ctx.clearRect(0, 0, canvas.width, canvas.height);
+	let x = 0;
+    let y = 0;	
+
+	ctx.fillText("ось Х", 150, 10); 
+	ctx.fillText("ось У", 5, 190); 	
+
+	let s=Number(document.getElementById('inps').value);	
+	let Sрад=s
+	let L=Number(document.getElementById('inpL').value);	
+	let Ф=Number(document.getElementById('inpФ').value);
+	
+	let klass=Number(document.getElementById('inpкласс').value);
+	let K				
+			if (klass == "1"  && Sрад > 0   && Sрад <=5) {K=0.1;}
+			if (klass == "1"  && Sрад >= 5   && Sрад <=9) {K=0.2;}		
+			if (klass == "1"  && Sрад >= 9   && Sрад <=12) {K=0.2;}
+			if (klass == "1"  && Sрад >= 12   && Sрад <=20) {K=0.3;}				
+			if (klass == "1"  && Sрад >20   && Sрад <=30) {K=0.4;}
+			if (klass == "1"  && Sрад >30   && Sрад <=40) {K=0.5;}		
+			if (klass == "1"  && Sрад >40   && Sрад <=50) {K=0.6;}
+			if (klass == "1"  && Sрад >50   && Sрад <=70) {K=0.75;}				
+			if (klass == "1"  && Sрад >70   && Sрад <=100) {K=1;}
+			if (klass == "1"  && Sрад >100   && Sрад <=140) {K=1.25;}		
+			if (klass == "1"  && Sрад >140   && Sрад <=200) {K=1.50;}
+			if (klass == "1"  && Sрад >200   && Sрад <=300) {K=2;}				
+			if (klass == "1"  && Sрад >300   && Sрад <=400) {K=2.5;}			
+			
+			if (klass == "2"  && Sрад > 0   && Sрад <=5) {K=0.1;}
+			if (klass == "2"  && Sрад >= 5   && Sрад <=9) {K=0.2;}		
+			if (klass == "2"  && Sрад >= 9   && Sрад <=12) {K=0.3;}
+			if (klass == "2"  && Sрад >= 12   && Sрад <=20) {K=0.4;}				
+			if (klass == "2"  && Sрад >20   && Sрад <=30) {K=0.5;}
+			if (klass == "2"  && Sрад >30   && Sрад <=40) {K=0.6;}		
+			if (klass == "2"  && Sрад >40   && Sрад <=50) {K=0.75;}
+			if (klass == "2"  && Sрад >50   && Sрад <=70) {K=1;}				
+			if (klass == "2"  && Sрад >70   && Sрад <=100) {K=1.25;}
+			if (klass == "2"  && Sрад >100   && Sрад <=140) {K=1.5;}		
+			if (klass == "2"  && Sрад >140   && Sрад <=200) {K=2;}
+			if (klass == "2"  && Sрад >200   && Sрад <=300) {K=2.5;}				
+			
+			if (klass == "3"  && Sрад > 0   && Sрад <=5) {K=0.2;}
+			if (klass == "3"  && Sрад >= 5   && Sрад <=9) {K=0.3;}		
+			if (klass == "3"  && Sрад >= 9   && Sрад <=12) {K=0.4;}
+			if (klass == "3"  && Sрад >= 12   && Sрад <=20) {K=0.5;}				
+			if (klass == "3"  && Sрад >20   && Sрад <=30) {K=0.6;}
+			if (klass == "3"  && Sрад >30   && Sрад <=40) {K=0.75;}		
+			if (klass == "3"  && Sрад >40   && Sрад <=50) {K=1;}
+			if (klass == "3"  && Sрад >50   && Sрад <=70) {K=1.25;}				
+			if (klass == "3"  && Sрад >70   && Sрад <=100) {K=1.5;}
+			if (klass == "3"  && Sрад >100   && Sрад <=140) {K=2;}		
+			if (klass == "3"  && Sрад >140   && Sрад <=200) {K=2.50;}
+			
+			if (klass == "3" || klass == "2" || klass == "1" ){
+			}else{
+				K=1;
+				ctx.fillText("Неверно выбран класс" , 10, 180);				
+			} 	
+			
+			if (s <= 400  ){
+			}else{
+				ctx.fillText("Неверно выбрана Sрад" , 10, 180);				
+			}	
+			
+			
+			let C;
+			if (Ф/K >=2 ) {
+				C=2*Ф/K	;		
+			}else{
+				C=4;
+			}  	
+	let f_min = C*s;
+	let alfa0 = Math.atan(L/2/(f_min+s));
+	let alfa = 180/3.14*alfa0;
+	let s_штрих = s/Math.cos(alfa0);
+	let delta = (s+f_min)/f_min;	
+    let q = 120/f_min;
+	ctx.fillText("f_min,мм = " + Math.floor(f_min), 140, 40);	
+	//ctx.fillText("Sрад,мм = " + s, 140, 40);
+	//ctx.fillText("L = " + L, 150, 55);
+	ctx.fillText("угол alfa,град.= " + Math.floor(alfa), 140, 55);
+	ctx.fillText("S'рад,мм = " + Math.floor(s_штрих), 140, 70);
+	//ctx.fillText("delta = " + Math.floor(delta*100)/100, 150, 115);
+	//ctx.fillText("q = 120/f_min = " + Math.floor(q*100)/100, 150, 130);	
+	ctx.fillText("C = " + Math.floor(C*10)/10, 140, 85);	
+			
+			if (alfa > 45 ) {
+	ctx.fillText("alfa > 45 град. Уменьшить L!" , 10, 180);	
+			}else{
+			}   
+			
+			if (L/0.8 > f_min ) {
+	ctx.fillText("для такого L f =" + L/0.8, 140, 100);	
+			}else{
+			}	
+	
+//	ctx.fillText("Для L должно быть f = "+L/0.8 , 10, 180);		
+	ctx.beginPath();
+	
+	
+    ctx.moveTo(x+0, y+0);  //ось Х  
+   ctx.lineTo(x+200, y+0); //ось Х		
+     ctx.moveTo(x+0, y+0);  //ось У  
+    ctx.lineTo(x+0, y+200); //ось У
+	
+    // ctx.moveTo(x+0, y+f); // f
+    //ctx.lineTo(f*Math.sin(alfa), f*Math.cos(alfa));
+	
+     ctx.moveTo(x+0, y+q*f_min);  //  плоский шов
+     ctx.lineTo(x+q*(L/2+20), y+q*f_min);  //
+	 
+     ctx.moveTo(x+q*(L/2+20), y+q*f_min);  //  плоский шов
+     ctx.lineTo(x+q*(L/2+20), y+q*f_min+q*s);  //
+	 
+     ctx.moveTo(x+q*(L/2+20), y+q*f_min+q*s);  // плоский шов 
+     ctx.lineTo(x+0, y+q*f_min+q*s);  //
+	 
+     ctx.moveTo(x+0, y+q*f_min+q*s+q*5);  //  кассета с пленкой
+     ctx.lineTo(x+q*L/2, y+q*f_min+q*s+q*5);  //
+	 
+     ctx.moveTo(x+q*L/2, y+q*f_min+q*s+q*5);  //  кассета с пленкой
+     ctx.lineTo(x+q*L/2, y+q*f_min+q*s+q*7);  //
+	 
+     ctx.moveTo(x+q*L/2, y+q*(f_min+s+7));  // кассета с пленкой 
+     ctx.lineTo(x+0, y+q*(f_min+s+7));  //
+	 	 
+     ctx.moveTo(x+0, y+0);  // угол 
+     ctx.lineTo(x+q*L/2, y+q*(f_min+s+7));  //	 
+	 
+
+    ctx.stroke();
+  }
+}
+
+  
+	  
+    </script>
+
+<script>
+
+document.getElementById("myButton").onclick = function() {	
+
+draw()
+
+	//let L=q*Number(document.getElementById('inpL').value);
+	//let s=q*Number(document.getElementById('inps').value);	
+}
+
+
+</script>
+
+ <pre>Программа для данной схемы написана в "живом формате"
+ в отличие от предыдущих схем.Оцените:</pre>
+
+    <button id="likeButton">Нравится</button>    
+	<div id="likeCount">0</div> 	
+
+    <button id="likeButton1">Не очень</button>
+    <div id="likeCount1">0</div>
+<script>
+
+        const likeButton = document.getElementById('likeButton');
+        const likeCountElement = document.getElementById('likeCount');
+
+        // Переменная для хранения счётчика
+        let count = 0;
+
+        // Добавляем обработчик клика
+        likeButton.addEventListener('click', () => {
+            count++; // Увеличиваем на 1
+            likeCountElement.textContent = count; // Обновляем отображение
+        });			
+			
+        const likeButton1 = document.getElementById('likeButton1');
+        const likeCountElement1 = document.getElementById('likeCount1');
+
+        // Переменная для хранения счётчика
+        let count1 = 0;
+
+        // Добавляем обработчик клика
+        likeButton1.addEventListener('click', () => {
+            count1++; // Увеличиваем на 1
+            likeCountElement1.textContent = count1; // Обновляем отображение
+        });
+
+</script>
+
+
+  	<h4>ГОСТ 7512-82 про схему черт.4</h4>
+ <pre>
+ 4.9. При выборе схемы и направления излучения следует учитывать:
+ - угол между направлением излучения и нормалью к радиографической
+ пленке в пределах контролируемого за одну экспозицию участка свар-
+ ного соединения должен быть минимальным и в любом случае не превы-
+ шать 45°.
+ 5.1. Расстояние от источника излучения до ближайшей к источнику
+ поверхности   контролируемого   участка   сварного соединения и 
+ размеры или количество контролируемых за одну экспозицию участ-
+ ков для схемы 4 просвечивания  следует  выбирать такими, чтобы 
+ при просвечивании выполнялись следующие требования:
+ относительное увеличение размеров изображений дефектов, располо-
+ женных со стороны источника  излучения (по отношению к дефектам,
+ расположенным со стороны пленки), не должно превышать 1,25;
+ угол между направлением излучения и нормалью к пленке в пределах
+ контролируемого за одну экспозицию  участка сварного соединения 
+ не должен превышать 45°;
+ ПРИЛОЖЕНИЕ 4.1. Расстояние f от источника излучения до обращенной
+ к  источнику  поверхности  контролируемого сварного соединения не 
+ должно быть менее значений, определяемых по формулe
+                  f >= Cs, 
+ где С=2Ф/К при Ф/К >= 2  и С=4 при при Ф/К менее 2;
+ s - радиационная толщина, мм;
+ Ф - максимальный размер фокусного пятна источника излучения, мм;
+ K - требуемая чувствительность контроля, мм.
+ Примечание 2. Длина контролируемых за одну экспозицию участков
+ при контроле по схемам черт. 4 и 6 не должна быть более 0,8 f.
+ </pre> 
+  
+  
+  
+  </body>
+</html>
+
