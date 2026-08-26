@@ -148,7 +148,7 @@
 			
 			let f_min =  0.5*[1.5*C*(1-m)-1]*D;
 			let n = f_min/D;
-			let Nуч = 3.14 / ( Math.asin(p*m) - Math.asin(p*m/(2*n+1)));
+			let Nуч = 3.14 / ( Math.asin(p*m) + Math.asin(p*m/(2*n+1)));
 
 	document.getElementById("message1").innerHTML = "Выбрано; "+" <br> класс = "
 		+ klass +"; <br> Ф, мм = "	+ Ф + "; <br> D = " + D +"; <br> dвн = " + dвн
