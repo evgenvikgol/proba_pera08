@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html lang="ru"><html>
+
+<head>
+	<title>Экспозиция_v02.html</title>
+	    <meta charset="utf-8">
+
+	
+<style>
+		H1{text-align: center; font-style: italic; color: red}		
+		H2{text-align: center; font-style: italic; color: green}
+		H3{text-align: middle; font-style: italic; color: green}
+		H4{text-align: middle; font-style: italic; color: blue}
+		H5{text-align: left; font-style: italic; color: green}
+		H6{text-align: right; font-style: italic; color: blue}	
+</style>
+
+</head>
+
+<body bgcolor="#ffff00" >
+
+<section>
+
+<ul>
+<li><a href="portfolio.html">Вернуться на portfolio</a></li> 
+</ul>
+</section>	
+
+	<h4>ПНАЭ Г-7-017-89 Приложение 4</h4>
+<pre>        ОПРЕДЕЛЕНИЕ ВРЕМЕНИ ЭКСПОЗИЦИИ (Ir-192)
+1. Для определения времени экспозиции при гамма-графическом 
+контроле с использованием источников иридий-192 (и.и.) при 
+помощи стального ступенчатого или клинообразного образца 
+опытным путем определяется время t0, необходимое для получе-
+ния заданной оптической плотности снимка при просвечивании
+участка образца с произвольной радиационной толщиной h0. 
+2. После определения t0 (это время должно определяться для
+каждого конкретного типа источника и типа радиографической
+пленки отдельно) время экспозиции, необходимое для получения 
+заданной оптической плотности снимков при просвечивании свар-
+ного соединения, определяется по формуле: 
+<img src="экспозиция_формула.jpg" align="left" hspace="5" vspace="5" width="50%">
+<br><br><br>
+ 
+где h0 и h — радиационные толщины при определении t0
+и просвечивании сварного соединения, см; Q0, Q -
+активность источника при определении t0 и просвечивании 
+сварного соединения; F0 и F - расстояние от источника из-
+лучения до радиографической пленки при определении t0 и
+просвечивании сварного соединения; мю - линейный коэффици-
+ент ослабления широкого пучка излучения. 
+ </pre>	
+<script>
+	let now  = new Date();
+	document.write("<p><strong>Сегодня</strong>  " + now.toDateString()+" </p>" );
+</script>
+	<h4>Введите исходные данные: </h4>
+	<pre> дату зарядки и.и.     : <input type="date" id="date" name="date"/></pre>
+	<pre> активность и.и. A,        кюри : <input type="text" size="3" name="A" min="100" max="1500" value="177" id="inpA"></pre>	  
+	<!--pre> расст.от и.и. до пленки F0, cм : <!--input type="text" size="3" name="f0" min="80" max="1480" value="500" id="inpf0"--></pre-->	   
+	<!--pre> время экспозиции t0,   мин : <!--input type="text" size="3" name="t0" min="0" max="5" value="211" id="inpt0"--></pre-->
+	<pre> расст.от и.и. до пленки F,  cм : <input type="text" size="3" name="f" min="0.5" max="5" value="50" id="inpf"></pre>	  
+	<pre> радиационную толщину h,     cм : <input type="text" size="3" name="h" min="0.5" max="5000" value="2" id="inph"></pre>	  
+
+	<pre> тип рад.пленки :<input list="ТипПлен" id="Плен" name="Плен" </pre>	  
+		<datalist id="ТипПлен">
+            <option value="РТ-5" </option>		
+            <option value="D4" </option>
+            <option value="D5" </option>		
+            <option value="D7" </option>			
+		</datalist>	
+    
+	<button id="myButton" align="left">Рассчитать параметры</button>
+			<p id="message1"></p>		
+			<p id="message2"></p>
+<script>
+
+	document.getElementById("myButton").onclick = function() {		
+		//зарядка и.и.
+		let dateA = document.getElementById('date').value;			
+		//alert("1  "+dateA)
+		let test = String(dateA); // строка
+		let yearA = test[0] + test[1] +test[2] + test[3] //prompt("Введите год", '2000');
+		let monthA = test[5] + test[6] 
+		let dayA = test[8] + test[9] 		
+		let dateA1 = new Date(yearA, monthA -1 , dayA);				
+				//alert("A1  "+dateA1.getTime())		
+			let diff0 = now.getTime() - dateA1.getTime();		
+			let diff1 = Math.round(diff0*10/(1000*60*60*24))/10;				
+				//alert("diff1  "+diff1);			
+	
+			let A = Number(document.getElementById('inpA').value);
+			//let Q0 = 1;			
+			
+			let Q = A * Math.E**(- diff1 / 106.9);	
+
+				//alert("A  "+A+" Q  "+ Q );			
+			//let f0 = Number(document.getElementById('inpf0').value);			
+			//let f0 
+			let f = Number(document.getElementById('inpf').value);
+				//alert("f0  "+f0+" f  "+ f );			
+
+			//let h0 = Number(document.getElementById("h0").value);			
+			//let t0 ;			
+			let h = Number(document.getElementById('inph').value);
+			let koeff;
+			let мю=0.5;
+
+			let Тэксп;
+			let ИИ="Ir-192"
+						//alert(ИИ)			
+			let Плен=document.getElementById("Плен").value;
+			if (Плен == "РТ-5") {koeff = 1;}			
+			if (Плен == "D4"  ) {koeff = 1.4;}
+			if (Плен == "D5"  ) {koeff = 0.5;}			
+			if (Плен == "D7"  ) {koeff = 1 / 2.7;}
+						//alert(Плен+" "+koeff)
+						//alert(h+" "+h0)
+			let h0=1;
+			let Q0=1;
+			let f0=20;
+			let t0=18;
+
+			let t = t0 * (Q0 / Q) * (f/f0) ** 2  * koeff * Math.E**(мю * (h - h0));
+						alert("t0="+t0+" (Q0 / Q)= "+(Q0 / Q)+" (f/f0)="+(f/f0) ** 2+" мю="+мю+" (h - h0)="+(h - h0)+" koeff="+koeff+" ");
+
+				Тэксп = t ;
+				alert(" Тэксп= "+Тэксп)
+	document.getElementById("message1").innerHTML = "Исходные данные:"
+	+"<br> - выбран источник - " + ИИ
+	+"<br> - дата зарядки - " + dateA	
+	+"<br> - активность на дату зарядки - " + A + " кюри"
+	+ "<br> - выбрано расстояние F - " + f + " cм"
+	+ "<br> - выбрана радиационная толщина h - " + h + " cм"
+	+ "<br>Результат расчета:"	
+	+"<br> - активность источника на сегодня - " + Math.floor(Q*10)/10 + " кюри"
+	+ "<br> - с момента зарядки прошло, дней - " + diff1 
+	+ "<br> - Тэксп = " + Math.floor(Тэксп*10)/10 + " мин"	
+	+ "<br>Справка:"
+	+ "<br> - Q0 = " + Q0 + " кюри"	
+	+ "<br> - F0 - " + f0 + " см"
+	+ "<br> - h0 - " + h0 + " см"
+	+ "<br> - t0 = " + t0 + " мин";
+	
+	}
+	
+
+</script>
+  
+ 
+</body>
+</html>
